@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/common/Customer';
@@ -16,15 +16,15 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   show: boolean = false;
-  postForm: FormGroup;
+  postForm: UntypedFormGroup;
   login!: Login;
   user!: Customer;
 
   constructor(private userService: CustomerService, private localStorageService: LocalStorageService, private toastr: ToastrService,
     private router: Router) {
-    this.postForm = new FormGroup({
-      'username': new FormControl(null, Validators.required),
-      'password': new FormControl(null, Validators.required)
+    this.postForm = new UntypedFormGroup({
+      'username': new UntypedFormControl(null, Validators.required),
+      'password': new UntypedFormControl(null, Validators.required)
     })
   }
 

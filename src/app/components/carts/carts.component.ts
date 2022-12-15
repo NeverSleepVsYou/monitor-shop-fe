@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cart } from 'src/app/common/cart';
@@ -31,15 +31,15 @@ export class CartsComponent implements OnInit {
   amount!: number;
   discount!: number;
   amountReal!: number;
-  postForm: FormGroup;
+  postForm: UntypedFormGroup;
 
   user!:Customer;
 
   constructor(private cartService: CartService, private toastr: ToastrService, private orderService: OrdersService, 
     private localStorageService: LocalStorageService, private router: Router, private sendMailService: SendmailService) {
-    this.postForm = new FormGroup({
-      'address': new FormControl(null, [Validators.required, Validators.minLength(3)]),
-      'phone': new FormControl(null, [Validators.required])
+    this.postForm = new UntypedFormGroup({
+      'address': new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
+      'phone': new UntypedFormControl(null, [Validators.required])
     })
   }
 
@@ -66,9 +66,9 @@ export class CartsComponent implements OnInit {
   getAllItem() {    
     this.cartService.getCart(this.customerId).subscribe(data => {
       this.cart = data as Cart;
-      this.postForm = new FormGroup({
-        'address': new FormControl(this.cart.address, [Validators.required, Validators.minLength(3)]),
-        'phone': new FormControl(this.cart.phone, [Validators.required])
+      this.postForm = new UntypedFormGroup({
+        'address': new UntypedFormControl(this.cart.address, [Validators.required, Validators.minLength(3)]),
+        'phone': new UntypedFormControl(this.cart.phone, [Validators.required])
       })
       this.cartService.getAllDetail(this.cart.id).subscribe(data => {
         this.cartDetails = data as CartDetail[];

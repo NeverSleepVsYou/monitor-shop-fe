@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Cart } from 'src/app/common/cart';
@@ -15,7 +15,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class EditProfileComponent implements OnInit {
 
-  postForm: FormGroup;
+  postForm: UntypedFormGroup;
   user!: Customer;
   cart!: Cart;
   url = '';
@@ -26,34 +26,34 @@ export class EditProfileComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private customerService: CustomerService, 
     private toastr: ToastrService, private cartService: CartService, private localStorageService: LocalStorageService) {
-    this.postForm = new FormGroup({
-      'userId': new FormControl(0),
-      'name': new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      'email': new FormControl(null, Validators.required),
-      'address': new FormControl(null, Validators.required),
-      'phone': new FormControl(null, [Validators.required, Validators.pattern('(0)[0-9]{9}')]),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      'gender': new FormControl(true),
-      'registerDate': new FormControl(new Date),
-      'status': new FormControl(true),
-      'role': new FormControl(0)
+    this.postForm = new UntypedFormGroup({
+      'userId': new UntypedFormControl(0),
+      'name': new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
+      'email': new UntypedFormControl(null, Validators.required),
+      'address': new UntypedFormControl(null, Validators.required),
+      'phone': new UntypedFormControl(null, [Validators.required, Validators.pattern('(0)[0-9]{9}')]),
+      'password': new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
+      'gender': new UntypedFormControl(true),
+      'registerDate': new UntypedFormControl(new Date),
+      'status': new UntypedFormControl(true),
+      'role': new UntypedFormControl(0)
     })
   }
 
   ngOnInit(): void {
     this.customerService.getOne(this.id).subscribe(data => {
       this.user = data as Customer;
-      this.postForm = new FormGroup({
-        'userId': new FormControl(this.user.userId),
-        'name': new FormControl(this.user.name, [Validators.required, Validators.minLength(6)]),
-        'email': new FormControl(this.user.email, Validators.required),
-        'address': new FormControl(this.user.address, Validators.required),
-        'phone': new FormControl(this.user.phone, [Validators.required, Validators.pattern('(0)[0-9]{9}')]),
-        'password': new FormControl(this.user.password, [Validators.required, Validators.minLength(6)]),
-        'gender': new FormControl(this.user.gender),
-        'registerDate': new FormControl(this.user.registerDate),
-        'status': new FormControl(this.user.status),
-        'role': new FormControl(this.user.role)
+      this.postForm = new UntypedFormGroup({
+        'userId': new UntypedFormControl(this.user.userId),
+        'name': new UntypedFormControl(this.user.name, [Validators.required, Validators.minLength(6)]),
+        'email': new UntypedFormControl(this.user.email, Validators.required),
+        'address': new UntypedFormControl(this.user.address, Validators.required),
+        'phone': new UntypedFormControl(this.user.phone, [Validators.required, Validators.pattern('(0)[0-9]{9}')]),
+        'password': new UntypedFormControl(this.user.password, [Validators.required, Validators.minLength(6)]),
+        'gender': new UntypedFormControl(this.user.gender),
+        'registerDate': new UntypedFormControl(this.user.registerDate),
+        'status': new UntypedFormControl(this.user.status),
+        'role': new UntypedFormControl(this.user.role)
       })
       this.url = this.user.image;
     }, error => {

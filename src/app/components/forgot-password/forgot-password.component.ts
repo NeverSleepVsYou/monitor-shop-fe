@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/common/Customer';
@@ -15,18 +15,18 @@ import Swal from 'sweetalert2';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  postForm:FormGroup
+  postForm:UntypedFormGroup
   user!:Customer
   data!:any
   check:boolean = false;
 
   constructor(private localStorageService: LocalStorageService, private router:Router, private toastr: ToastrService, 
     private sendMailService: SendmailService, private userService:CustomerService) { 
-    this.postForm = new FormGroup({
-      'email': new FormControl(null, Validators.required),
-      'otp': new FormControl(null, Validators.required),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      'passwordConfirm': new FormControl(null, [Validators.required, Validators.minLength(6)]),      
+    this.postForm = new UntypedFormGroup({
+      'email': new UntypedFormControl(null, Validators.required),
+      'otp': new UntypedFormControl(null, Validators.required),
+      'password': new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
+      'passwordConfirm': new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),      
     })
   }
 
